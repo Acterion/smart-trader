@@ -1,4 +1,5 @@
 let path = require('path');
+let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 let conf = {
     entry: './src/main.js',
@@ -7,6 +8,14 @@ let conf = {
         filename: 'main.js',
         publicPath: 'dist/'
     },
+    devServer: {
+        hot: true
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: 'styles.css',
+        }),
+    ],
     module: {
         rules: [
             {
@@ -22,6 +31,35 @@ let conf = {
                         ]
                     }
                 }
+            },
+            {
+                test: /\.module\.css$/,
+                exclude: /node_modules/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {}
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: {
+                                localIdentName: '[local]__[sha1:hash:hex:7]'
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                test: /^((?!\.module).)*css$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {}
+                    },
+                    'css-loader'
+                ]
             }
         ]
     }

@@ -1,0 +1,15 @@
+.root {
+    padding: 20px 100px 20px 100px;
+}
+
+.input{
+    width: 50px;
+}
+
+table {
+    text-align: center;
+}
+
+.nb {
+    border: none;
+}
