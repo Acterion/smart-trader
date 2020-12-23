@@ -25,6 +25,10 @@ export default class extends React.Component{
         }
     }
 
+    setValue(value) {
+        this.nativeInput.current.value = value;
+    }
+
     checkChange = (e) => {
         if(this.props.value.toString() !== e.target.value){
             this.props.onChange(e);
